@@ -1,13 +1,10 @@
 {
-  "name": "userStory",
+  "name": "BKTasks",
   "version": "0.0.0",
-  "description": "This is a user Story app",
+  "description": "This is a BKTasks Web application",
   "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Johnny",
-  "license": "ISC",
+  "author": "Steve Hieu",
+  "license": "MIT",
   "dependencies": {
     "bayes": "0.0.4",
     "bcrypt-nodejs": "0.0.3",
