@@ -5,6 +5,10 @@
   "main": "server.js",
   "author": "Steve Hieu",
   "license": "MIT",
+  "engines": {
+    "node": "0.12.7",
+    "npm": "2.11.3"
+  },
   "dependencies": {
     "bayes": "0.0.4",
     "bcrypt-nodejs": "0.0.3",
