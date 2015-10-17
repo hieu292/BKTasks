@@ -1,0 +1,309 @@
+﻿<div class="row" ng-controller="TasksCtrl">
+	<div class="col-lg-12 col-sm-12 col-xs-12">
+		<section id="section-1"></section>
+		<h5 ng-if="!dataShare.edit" class="row-title before-green"><i class="fa fa-tags green"></i>Create Task Panel</h5>
+		<h5 ng-if="dataShare.edit" class="row-title before-blue"><i class="fa fa-check-square-o blue"></i>Edit Panel</h5>
+		<div class="row">
+			<div ng-if="dataShare.edit" class="col-lg-6 col-sm-6 col-xs-12">
+				<div class="well with-header">
+					<div class="header bordered-blue">Edit Task</div>
+
+					<div>
+						<div ng-show="checkShowEdit">
+							<p ng-if="!notifyEdit.checkSuccess" class="bg-danger">{{notifyEdit.message}}</p>
+							<p ng-if="notifyEdit.checkSuccess" class="bg-success">{{notifyEdit.message}}</p>
+						</div>
+						
+						<form class="form-horizontal">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Name Task</label>
+
+									<div class="col-sm-6">
+										<input class="form-control" ng-model="dataShare.data.nameTask" placeholder="Name Task" type="text">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Describe Task</label>
+
+									<div class="col-sm-6">
+										<textarea ng-model='dataShare.data.describe' class="form-control" rows="6" id="form-field-8" placeholder="Discribe your task here. You must fill more than 10 characters."></textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Priority</label>
+									<div class="col-sm-6">
+										<div class="radio">
+											<label>
+												<input ng-model="dataShare.data.priority" value="1" name="form-field-radio" type="radio" class="colored-danger">
+												<span class="text"> High </span>
+											</label>
+										</div>
+
+										<div class="radio">
+											<label>
+												<input ng-model="dataShare.data.priority" value="2" name="form-field-radio" type="radio" class="colored-blue">
+												<span class="text"> Medium</span>
+											</label>
+										</div>
+
+										<div class="radio">
+											<label>
+												<input ng-model="dataShare.data.priority" value="3" name="form-field-radio" type="radio" class="colored-success">
+												<span class="text"> Low</span>
+											</label>
+										</div>
+
+										<div class="radio">
+											<label>
+												<input ng-model="dataShare.data.priority" value="4" name="form-field-radio" type="radio" class="colored-blueberry">
+												<span class="text"> Normal </span>
+											</label>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Status</label>
+									<div class="col-sm-6">
+										<div class="col-xs-4">
+											<label style="margin:5px">
+												<input ng-disabled="dataShare.data.completed" ng-model="dataShare.data.status" class="checkbox-slider colored-success" type="checkbox">
+												<span class="text"></span>
+											</label>
+										</div>
+									</div>
+								</div>
+
+								<div class="check-element sample-show-hide" ng-show="dataShare.data.status">
+									<hr class="wide"/>
+									<p>Progress</p>{{dataShare.data.progress}}%
+									<div class="col-md-3">
+										<div class="spinbox" ui-jq="spinbox">
+											<input class="spinbox-input form-control" ng-model="dataShare.data.progress" value="1"  type="text">
+											<div class="spinbox-buttons	btn-group btn-group-vertical">
+												<button type="button" class="btn spinbox-up blue">
+													<i class="fa fa-chevron-up"></i>
+												</button>
+												<button type="button" class="btn spinbox-down danger">
+													<i class="fa fa-chevron-down"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+									<div type="info" class="progress-striped active progress ng-isolate-scope">
+										<div ng-style="{width: dataShare.data.progress + '%'}" class="progress-bar progress-bar-info" ng-class="type &amp;&amp; 'progress-bar-' + type" role="progressbar"  aria-valuemin="0" aria-valuemax="100"  ></div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">Completed</label>
+										<div class="col-sm-6">
+											<div class="col-xs-4">
+												<label style="margin:5px">
+													<input ng-model="dataShare.data.completed" class="checkbox-slider colored-blue" type="checkbox">
+													<span class="text"></span>
+												</label>
+											</div>
+										</div>
+									</div>
+
+									<hr class="wide"/>
+									<p>Time Sub</p>
+									<slider ng-model="dataShare.data.timeSub"
+									floor="1"
+									ceiling="60">
+								</slider>
+							<hr class="wide"/>
+							<h4>Start Date</h4>
+							<pre>Your new selection: <em>{{dataShare.data.startTime | date:'yyyy-MM-dd'}}</em></pre>
+							<div style="display:inline-block; min-height:240px;">
+								<datepicker ng-model="dataShare.data.startTime" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+							</div>
+							<h4>End Date</h4>
+							<pre>Your new selection: <em>{{dataShare.data.endTime | date:'yyyy-MM-dd'}}</em></pre>
+							<div style="display:inline-block; min-height:240px;">
+								<datepicker ng-model="dataShare.data.endTime" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+							</div>
+						</div>		
+						<hr class="wide"/>
+						<a ng-click="backtoNewTask()" class="btn btn-success" >
+							<i class="fa fa-rotate-left"></i>
+							Back to New Task</a>
+							<a ng-click="editTask()" class="btn btn-info" style="float:right">
+								<i class="fa fa-check-circle"></i>
+								Edit Task</a>
+
+
+							</fieldset>
+						</form>
+
+					</div>
+				</div>
+			</div>
+			<div ng-if="!dataShare.edit" class="col-lg-6 col-sm-6 col-xs-12">
+				<div class="well with-header">
+					<div class="header bordered-palegreen">New Task</div>
+
+					<div ng-controller="createTasksCtrl">
+						<div ng-show="checkShow">
+							<p  ng-if="!notify.checkSuccess" class="bg-danger">{{notify.message}}</p>
+							<p   ng-if="notify.checkSuccess" class="bg-success">{{notify.message}}</p>
+						</div>
+						<form class="form-horizontal">
+							<fieldset>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Name Task</label>
+
+									<div class="col-sm-6">
+										<input class="form-control" ng-model="taskName" placeholder="Name Task" type="text">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Describe Task</label>
+
+									<div class="col-sm-6">
+										<textarea ng-model='describeTask' class="form-control" rows="6" id="form-field-8" placeholder="Discribe your task here. You must fill more than 10 characters."></textarea>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Priority</label>
+									<div class="col-sm-6">
+
+										<div class="radio">
+											<label>
+												<input ng-model="taskPriority.id" value="1" name="form-field-radio" type="radio" class="colored-danger">
+												<span class="text"> High </span>
+											</label>
+										</div>
+
+										<div class="radio">
+											<label>
+												<input ng-model="taskPriority.id" value="2" name="form-field-radio" type="radio" class="colored-blue">
+												<span class="text"> Medium</span>
+											</label>
+										</div>
+
+										<div class="radio">
+											<label>
+												<input ng-model="taskPriority.id" value="3" name="form-field-radio" type="radio" class="colored-success">
+												<span class="text"> Low</span>
+											</label>
+										</div>
+
+										<div class="radio">
+											<label>
+												<input ng-model="taskPriority.id" value="4" name="form-field-radio" type="radio" class="colored-blueberry">
+												<span class="text"> Normal </span>
+											</label>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-sm-3 control-label">Status</label>
+									<div class="col-sm-6">
+										<div class="col-xs-4">
+											<label style="margin:5px">
+												<input ng-model="taskStatus" class="checkbox-slider colored-success" type="checkbox">
+												<span class="text"></span>
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="check-element sample-show-hide" ng-show="taskStatus">
+									<hr class="wide"/>
+									<p>Time Sub</p>
+									<slider ng-model="taskTimeSub"
+									floor="1"
+									ceiling="60">
+								</slider>
+							<hr class="wide"/>
+
+							<h4>Start Date</h4>
+							<pre>Selected date is: <em>{{dt1 | date:'fullDate' }}</em></pre>
+							<div style="display:inline-block; min-height:240px;">
+								<datepicker ng-model="dt1" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+							</div>
+							<h4>End Date</h4>
+							<pre>Selected date is: <em>{{dt2 | date:'fullDate' }}</em></pre>
+							<div style="display:inline-block; min-height:240px;">
+								<datepicker ng-model="dt2" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+							</div>
+
+
+
+							
+						</div>		
+						<hr class="wide"/>
+
+						<a ng-click="createTask()" class="btn btn-success" style="float:right">
+							<i class="fa fa-plus"></i>
+							Create Task</a>
+
+
+						</fieldset>
+					</form>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-6 col-sm-6 col-xs-12">
+			<div class="well with-header">
+				<div class="header bordered-darkorange">List Tasks</div>
+				<div class="task-container" ng-controller="listTasksCtrl">
+					<div class="task-search">
+						<span class="input-icon">
+							<input type="text" class="form-control" placeholder="Search Tasks" ng-model="searchText">
+							<i class="fa fa-search gray"></i>
+						</span>
+					</div>
+					<ul class="tasks-list" infinite-scroll='loadMore()'infinite-scroll-disabled='busy' infinite-scroll-distance='1'>
+						<li class="task-item" ng-repeat="task in tasks | filter:searchText">
+							<div class="task-check">
+								<label>
+									<span class="typcn typcn-folder-open"></span>
+									<span class="text"></span>
+								</label>
+							</div>
+							<div class="task-state">
+								<span class="label label-palegreen" ng-if="(task[0].completed==false)&&(task[0].status == true)">
+									In Progress - {{task[0].nameTask}}
+								</span>
+								<span  class="label label-yellow" ng-if="task[0].completed">
+									Completed - {{task[0].nameTask}}
+								</span>
+								<span class="label label-orange" ng-if="(task[0].completed==false)&&(task[0].status == false)">
+									UnApproved - {{task[0].nameTask}}
+								</span>
+							</div>
+							<div class="task-time">From {{task[0].startTime | date:'yyyy-MM-dd'}} to {{task[0].endTime | date:'yyyy-MM-dd'}} </div>
+							<div class="task-body">{{task[0].describe}}</div>
+							<div class="task-creator">
+								<a ng-click="gotoEdit(task[0])">View and Edit</a>
+								<a style="margin-left:10px" ng-click="deleteTask(task[0], $index)">Delete</a>
+							</div>
+							<div class="task-assignedto"><a ng-click="TimeCount(task[0])">TimeCount</a></div>
+						</li>
+
+					</ul>
+				</div>
+
+
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+
+
+
+
+</div>
+</div>

@@ -1,0 +1,168 @@
+﻿<div ng-controller="FullcalendarCtrl">
+    <div class="hbox hbox-auto-xs hbox-auto-sm">
+        <div class="col wrapper-md">
+            <div class="clearfix m-b">
+                
+                <div class="pull-right">
+                    <button type="button" class="btn btn-sm btn-default" ng-click="today()">today</button>
+                    <div class="btn-group m-l-xs">
+                        <button class="btn btn-sm btn-default" ng-click="changeView('agendaDay')">Day</button>
+                        <button class="btn btn-sm btn-default" ng-click="changeView('agendaWeek')">Week</button>
+                        <button class="btn btn-sm btn-default" ng-click="changeView('month')">Month</button>
+                    </div>
+                </div>
+            </div>
+            <div class="pos-rlt">
+                <div class="fc-overlay">
+                    <div class="panel bg-white b-a pos-rlt">
+                        <span class="arrow"></span>
+                        <div class="h4 font-thin m-b-sm">{{event.title}}</div>
+                        <div class="line b-b b-light"></div>
+                        <div><i class="icon-calendar text-muted m-r-xs"></i> {{event.start | date:'medium'}}</div>
+                        <div class="ng-hide" ng-show='event.end'><i class="icon-clock text-muted m-r-xs"></i> {{event.end | date:'medium'}}</div>
+                        <div class="ng-hide" ng-show='event.location'><i class="icon-pointer text-muted m-r-xs"></i> {{event.location}}</div>
+                        <div class="m-t-sm">{{event.info}}</div>
+                        <div class="m-t-sm">{{event.url}}</div>
+                    </div>
+                </div>
+                <div class="calendar" ng-model="eventSources" config="uiConfig.calendar" ui-calendar="uiConfig.calendar"></div>
+            </div>
+        </div>
+        
+        <section id="section-1">
+            
+        </section>
+        <h5 class="row-title before-blue">Events Management</h5>
+        <div class="row">
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+                <div class="widget">
+                    <div class="widget-header bg-palegreen">
+                        <i class="widget-icon fa fa-arrow-down"></i>
+                        <span class="widget-caption">New Event</span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                            <a href="" widget-dispose></a>
+                        </div><!--Widget Buttons-->
+                    </div><!--Widget Header-->
+                    <div class="widget-body">
+
+                        <div ng-show="checkShowEdit">
+                            <p ng-if="!notifyEdit.checkSuccess" class="bg-danger">{{notifyEdit.message}}</p>
+                            <p ng-if="notifyEdit.checkSuccess" class="bg-success">{{notifyEdit.message}}</p>
+                        </div>
+                        
+                        <form class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Name Event</label>
+
+                                    <div class="col-sm-6">
+                                        <input class="form-control" ng-model="nameEvent" placeholder="Name Event" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Info Event</label>
+
+                                    <div class="col-sm-6">
+                                        <textarea ng-model='infoEvent' class="form-control" rows="6" id="form-field-8" placeholder="Discribe your event here. You must fill more than 10 characters."></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">All Day</label>
+                                    <div class="col-sm-6">
+                                        <div class="col-xs-4">
+                                            <label style="margin:5px">
+                                                <input ng-model="checkallDay" class="checkbox-slider colored-success" type="checkbox">
+                                                <span class="text"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            <hr class="wide"/>
+                            <h4>Start Date</h4>
+                            <pre>Your new selection: <em>{{startDate | date:'yyyy-MM-dd'}}</em> </pre>
+                            <div style="display:inline-block; min-height:240px;">
+                                <datepicker ng-model="startDate" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                            </div>
+                                <pre class="alert alert-info">Start time is: {{mystarttime | date:'shortTime' }}</pre>
+                                <timepicker ng-model="mystarttime" show-meridian="ismeridian"></timepicker>
+
+                            <h4>End Date</h4>
+                            <pre>Your new selection: <em>{{endDate | date:'yyyy-MM-dd'}}</em></pre>
+                            <div style="display:inline-block; min-height:240px;">
+                                <datepicker ng-model="endDate" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                            </div>
+                                <pre class="alert alert-info">End time is: {{myendtime | date:'shortTime' }}</pre>
+                                <timepicker ng-model="myendtime" show-meridian="ismeridian"></timepicker>
+                        <hr class="wide"/>
+                            <a ng-click="createEvent()" class="btn btn-info" style="float:right">
+                                <i class="fa fa-check-circle"></i>
+                                Create Event</a>
+
+
+                            </fieldset>
+                        </form>
+
+                    </div><!--Widget Body-->
+                </div><!--Widget-->
+            </div>
+            <div class="col-lg-6 col-sm-6 col-xs-12">
+                <div class="widget collapsed">
+                    <div class="widget-header bg-lightred">
+                        <i class="widget-icon fa fa-arrow-up"></i>
+                        <span class="widget-caption">View and Edit Events </span>
+                        <div class="widget-buttons">
+                            <a href="" widget-maximize></a>
+                            <a href="" widget-collapse></a>
+                            <a href="" widget-dispose></a>
+                        </div><!--Widget Buttons-->
+                    </div><!--Widget Header-->
+                    <div class="widget-body">
+                        <div ng-repeat="e in events">
+                        <form class="form-horizontal">
+                            <fieldset>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label">Name Event</label>
+
+                                    <div class="col-sm-6">
+                                        <input class="form-control" ng-model="e.title" placeholder="Name Task" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">Info Event</label>
+
+                                    <div class="col-sm-6">
+                                        <textarea ng-model='e.info' class="form-control" rows="6" id="form-field-8" placeholder="Discribe your task here. You must fill more than 10 characters."></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label">All Day</label>
+                                    <div class="col-sm-6">
+                                        <div class="col-xs-4">
+                                            <label style="margin:5px">
+                                                <input ng-model="e.allDay" class="checkbox-slider colored-success" type="checkbox">
+                                                <span class="text"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            <a style="margin-left:10px" ng-click="saveEvent($index)" class="pull-right btn btn-success" >
+                            <i class="fa fa-check-circle"></i>
+                            Save</a>
+                            <a ng-click="remove($index)" class="pull-right btn btn-info" style="float:right">
+                                <i class="fa fa-trash-o"></i>
+                                Delete</a>
+                            <div class="text-xs text-muted"> <span style="color:blue">Start:</span> {{e.start | date:"MMM dd h:mma"}} <span style="color:blue">End:</span> {{e.end | date:"MMM dd h:mma"}}</div>
+                            <hr class="wide"/>
+                        </fieldset>
+                        </form>
+                    </div>
+                        
+
+                    </div><!--Widget Body-->
+                </div><!--Widget-->
+            </div>
+        </div>
+    </div>
+</div>

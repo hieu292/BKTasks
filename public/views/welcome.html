@@ -1,0 +1,77 @@
+<div class="error-header"> </div>
+
+<div class="container">
+
+    <section class="error-container text-center">
+        <h1><img src="assets/img/bk.jpg"></h1>
+        <!--<h1>404</h1>-->
+        <div class="error-divider">
+            <h2>Welcome To BK Tasks Website</h2>
+            <p class="description">The best tasks management for you</p>
+        </div>
+        <div  ng-controller="modalCtrl">
+            <a style="margin-right: 20px" ng-click="openlogin()" class="return-btn"><i class="fa fa-home"></i>Login</a>
+            <a ng-click="opensignup()" class="return-btn"><i class="fa fa-pencil-square-o"></i>Sign Up</a>
+        </div>
+    </section>
+</div>
+<script type="text/ng-template" id="signupModal" >
+    <div class="modal-header">
+        <h3 style="margin-top: 0px;margin-bottom: 0px;">Sign Up</h3>
+        <p style="margin-top:10px" class="bg-danger">{{notify}}</p>
+    </div>
+    <form ng-submit="submit()">
+
+      <div class="form-group">
+        <label style="margin:10px" for="fullname">Fullname:</label>
+        <input ng-model="user.name" style="margin:10px;width: 95%;" type="text" class="form-control" id="name" >
+    </div>
+    <div class="form-group">
+        <label style="margin:10px" for="username">Username:</label>
+        <input ng-model="user.username" style="margin:10px;width: 95%;" type="text" class="form-control" id="username" >
+    </div>
+    <div class="form-group">
+        <label style="margin:10px" for="pwd">Password:</label>
+        <input ng-model="user.password" style="margin:10px;width: 95%;" type="password" class="form-control" id="pwd" >
+    </div>
+    <div class="form-group">
+        <label style="margin:10px" for="email">Email:</label>
+        <input ng-model="user.email" style="margin:10px;width: 95%;" type="email" class="form-control" id="email">
+    </div>
+    <div class="form-group" >
+        <label style="margin:10px" for="images">Choose Images:</label>
+
+  
+      <select name="singleSelect" ng-model="items.selectedOption" ng-options="option.key for option in items.availableOptions  track by option.value">
+
+      </select>
+      <img style="margin-left: 100px;" src="{{items.selectedOption.value}}" alt="">
+
+  </div>
+  <div style="margin-top:20px" class="modal-footer">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</form>
+</script>
+<script type="text/ng-template" id="loginModal">
+    <div class="modal-header">
+        <h3 style="margin-top: 0px;margin-bottom: 0px;">Login</h3>
+        <p style="margin-top:10px" class="bg-danger">{{notify}}</p>
+    </div>
+    <form ng-submit="submit()">
+
+      <div class="form-group">
+        <label style="margin:10px" for="email">Username:</label>
+        <input ng-model="user.username" style="margin:10px;width: 95%;" type="text" class="form-control" id="username">
+    </div>
+    <div class="form-group">
+        <label style="margin:10px" for="pwd">Password:</label>
+        <input ng-model="user.password" style="margin:10px;width: 95%;" type="password" class="form-control" id="pwd">
+    </div>
+    <div style="margin-top:20px" class="modal-footer">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+  </div>
+</form>
+</script>

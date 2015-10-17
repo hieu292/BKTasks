@@ -1,0 +1,40 @@
+﻿<!-- Loading Container -->
+<div class="loading-container" data-ng-include=" 'views/partials/loading.html' "></div>
+<!--  /Loading Container -->
+
+<!-- Navbar -->
+<div class="navbar" data-ng-include=" 'views/partials/navbar.html' "></div>
+<!-- /Navbar -->
+
+<div class="main-container container-fluid">
+    <!-- Page Container -->
+    <div class="page-container">
+        <!-- Page Sidebar -->
+        <div class="page-sidebar"  id="sidebar" data-ng-include=" 'views/partials/sidebar.html' ">
+        </div>
+        <!-- /Page Sidebar -->
+        <!-- Chat Bar -->
+
+        <!-- /Chat Bar -->
+        <!-- Page Content -->
+        <div class="page-content">
+            <!-- Page Breadcrumb -->
+            <div class="page-breadcrumbs" data-ng-include=" 'views/partials/breadcrumbs.html' ">
+            </div>
+            <!-- /Page Breadcrumb -->
+            <!-- Page Header -->
+            <div class="page-header position-relative" data-ng-include=" 'views/partials/header.html' ">
+            </div>
+            <!-- /Page Header -->
+            <!-- Page Body -->
+            <div class="page-body" ui-view>
+                <!-- Your Content Goes Here -->
+            </div>
+            <!-- /Page Body -->
+        </div>
+        <!-- /Page Content -->
+    </div>
+    <!-- /Page Container -->
+    <!-- Main Container -->
+
+</div>

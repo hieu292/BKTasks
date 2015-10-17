@@ -1,0 +1,177 @@
+<div class="row" ng-controller="adminMLCtrl">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <section id="section-1"></section>
+        <h5 ng-if="!checkedit" class="row-title before-green"><i class="fa fa-tags green"></i>Add Dataset</h5>
+        <h5 ng-if="checkedit" class="row-title before-green"><i class="fa fa-tags green"></i>Edit Dataset</h5>
+
+        <div class="row" ng-show="!checkedit">
+            <div class="well with-header">
+                <div class="header bordered-blue">Add Dataset</div>
+
+                <div>
+                    <div ng-show="checkShowEdit">
+                        <p ng-if="!notifyEdit" class="bg-danger">{{message}}</p>
+
+                        <p ng-if="notifyEdit" class="bg-success">{{message}}</p>
+                    </div>
+
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-6">
+                                <label class="col-sm-3 control-label">Comment</label>
+
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" rows="6" id="form-field-8" ng-model="comment" placeholder="Discribe your comment here. You must fill more than 10 characters."></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-6">
+                                <label class="col-sm-3 control-label">Categories</label>
+
+                                <div class="col-sm-6">
+                                    <div class="radio">
+                                        <label>
+                                            <input ng-model="classify" value="happy"
+                                                   name="form-field-radio" type="radio" class="colored-danger">
+                                            <span class="text"> Happy</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radio">
+                                        <label>
+                                            <input ng-model="classify" value="sad"
+                                                   name="form-field-radio" type="radio" class="colored-blue">
+                                            <span class="text"> Sad</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radio">
+                                        <label>
+                                            <span class="text"> Other</span>
+                                            <input class="form-control" ng-model="classify"
+                                                   placeholder="Other Classification" type="text">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="wide"/>
+
+                            <a ng-click="createDataset()" class="btn btn-success" style="float:right">
+                                <i class="fa fa-plus"></i>
+                                Add Dataset</a>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-show="checkedit">
+            <div class="well with-header">
+                <div class="header bordered-blue">Edit Dataset</div>
+
+                <div>
+                    <div ng-show="checkShowEdit">
+                        <p ng-if="!notifyEdit" class="bg-danger">{{message}}</p>
+
+                        <p ng-if="notifyEdit" class="bg-success">{{message}}</p>
+                    </div>
+
+                    <form class="form-horizontal">
+                        <fieldset>
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-6">
+                                <label class="col-sm-3 control-label">Comment</label>
+
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" rows="6" ng-model="editcomment" placeholder="Discribe your comment here. You must fill more than 10 characters."></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-6">
+                                <label class="col-sm-3 control-label">Categories</label>
+
+                                <div class="col-sm-6">
+                                    <div class="radio">
+                                        <label>
+                                            <input ng-model="editclassify" value="happy"
+                                                   name="form-field-radio" type="radio" class="colored-danger">
+                                            <span class="text"> Happy</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radio">
+                                        <label>
+                                            <input ng-model="editclassify" value="sad"
+                                                   name="form-field-radio" type="radio" class="colored-blue">
+                                            <span class="text"> Sad</span>
+                                        </label>
+                                    </div>
+
+                                    <div class="radio">
+                                        <label>
+                                            <span class="text"> Other</span>
+                                            <input class="form-control" ng-model="editclassify"
+                                                   placeholder="Other Classification" type="text">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="wide"/>
+                            <a ng-click="editDataset()" class="btn btn-info" style="float:right">
+                                <i class="fa fa-plus"></i>
+                                Edit Dataset</a>
+                            <a ng-click="backtoCreateDataset()" class="btn btn-success"
+                               style="float:right; margin-right: 20px">
+                                <i class="fa fa-rotate-left"></i> Back to add Dataset
+                            </a>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <h5 class="row-title"><i class="typcn typcn-arrow-minimise"></i>List Datasets</h5>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <div class="well with-header with-footer">
+                    <div class="header bordered-pink">
+                        List All Dataset
+                    </div>
+                    <table class="table table-striped table-bordered table-hover">
+                        <div class="task-search">
+						<span class="input-icon">
+							<input type="text" class="form-control" placeholder="Search Tasks" ng-model="searchText">
+							<i class="fa fa-search gray"></i>
+						</span>
+                        </div>
+                        <thead>
+                        <tr>
+                            <th class="hidden-xs">
+                                <i class="fa fa-stack-overflow"></i> Comment
+                            </th>
+                            <th>
+                                <i class="fa fa-th-large"></i> Categories
+                            </th>
+                            <th>
+                                <i class="fa fa-wrench"></i> Action
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="dataset in datasets | filter: searchText">
+                            <td>
+                                {{dataset.comment}}
+                            </td>
+                            <td class="hidden-xs">
+                                {{dataset.classify}}
+                            </td>
+                            <td>
+                                <a ng-click="editData(dataset,$index)" class="btn btn-default btn-xs purple"><i
+                                        class="fa fa-edit"></i> Edit</a>
+                                <a ng-click="deleteDataset(dataset,$index)" class="btn btn-default btn-xs black"><i
+                                        class="fa fa-trash-o"></i> Delete</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

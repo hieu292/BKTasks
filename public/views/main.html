@@ -1,0 +1,215 @@
+﻿<div ng-controller="MainCtrl">
+	<div class="col-md-3"></div> 
+	<div class="col-md-6"> 
+		<form method="post" class="well padding-bottom-10" onsubmit="return false;">
+			<span class="input-icon icon-right">
+				<textarea ng-model="newStatus" rows="2" class="form-control" placeholder="What are you thinking?"></textarea>
+				<i class="fa fa-camera themeprimary"></i>
+			</span>
+			<div class="padding-top-10 text-align-right">
+				<a ng-click="postStatus()" class="btn btn-sm btn-primary">
+					Post
+				</a>
+			</div>
+		</form>
+	</div>
+	<div class="col-md-3"></div>
+	<div class="row">
+		<div class="col-lg-4 col-sm-12 col-xs-12">
+			<div class="widget">
+				<div class="widget-header bordered-bottom bordered-themeprimary">
+					<i class="widget-icon fa fa-tasks themeprimary"></i>
+					<span class="widget-caption themeprimary">Today Tasks</span>
+				</div><!--Widget Header-->
+				<div class="widget-body no-padding">
+					<div class="task-container">
+						<ul class="tasks-list">
+							<li class="task-item" ng-repeat="task in todaytasks">
+								<div class="task-check">
+									<label>
+										<span class="typcn typcn-folder-open"></span>
+										<span class="text"></span>
+									</label>
+								</div>
+								<div class="task-state">
+									<span class="label label-palegreen" ng-if="(task.completed==false)&&(task.status == true)">
+										In Progress - {{task.nameTask}}
+									</span>
+									<span  class="label label-yellow" ng-if="task.completed">
+										Completed - {{task.nameTask}}
+									</span>
+									<span class="label label-orange" ng-if="(task.completed==false)&&(task.status == false)">
+										UnApproved - {{task.nameTask}}
+									</span>
+								</div>
+								<div class="task-body">{{task.describe}}</div>
+								<div class="task-creator">
+									<span style="color:red">From</span> {{task.startTime | date:'yyyy-MM-dd'}} <span style="color:red">to</span> {{task.endTime | date:'yyyy-MM-dd'}}
+								</div>
+								<div class="task-assignedto"><a ng-click="TimeCount(task)">TimeCount</a></div>
+							</li>
+
+						</ul>
+					</div>
+				</div><!--Widget Body-->
+			</div>
+
+		</div>
+		<div class="col-lg-4 col-sm-12 col-xs-12">
+			<div class="widget">
+				<div class="widget-header bordered-bottom bordered-themeprimary">
+					<i class="widget-icon fa fa-tasks themeprimary"></i>
+					<span class="widget-caption themeprimary">New Tasks</span>
+				</div><!--Widget Header-->
+				<div class="widget-body no-padding">
+					<div class="task-container">
+						<ul class="tasks-list">
+							<li class="task-item" ng-repeat="task in newtasks">
+								<div class="task-check">
+									<label>
+										<span class="typcn typcn-folder-open"></span>
+										<span class="text"></span>
+									</label>
+								</div>
+								<div class="task-state">
+									<span class="label label-palegreen" ng-if="(task.completed==false)&&(task.status == true)">
+										In Progress - {{task.nameTask}}
+									</span>
+									<span  class="label label-yellow" ng-if="task.completed">
+										Completed - {{task.nameTask}}
+									</span>
+									<span class="label label-orange" ng-if="(task.completed==false)&&(task.status == false)">
+										UnApproved - {{task.nameTask}}
+									</span>
+								</div>
+								<div class="task-body">{{task.describe}}</div>
+								<div class="task-creator">
+									<span style="color:red">From</span> {{task.startTime | date:'yyyy-MM-dd'}} <span style="color:red">to</span> {{task.endTime | date:'yyyy-MM-dd'}}
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				</div><!--Widget Body-->
+			</div>
+
+		</div>
+		<div class="col-lg-4 col-sm-12 col-xs-12">
+			<div class="widget">
+				<div class="widget-header bordered-bottom bordered-themeprimary">
+					<i class="widget-icon fa fa-tasks themeprimary"></i>
+					<span class="widget-caption themeprimary">Recent Completed</span>
+				</div><!--Widget Header-->
+				<div class="widget-body no-padding">
+					<div class="task-container">
+						<ul class="tasks-list">
+							<li class="task-item" ng-repeat="task in recentcompletedtasks">
+								<div class="task-check">
+									<label>
+										<span class="typcn typcn-folder-open"></span>
+										<span class="text"></span>
+									</label>
+								</div>
+								<div class="task-state">
+									<span class="label label-palegreen" ng-if="(task.completed==false)&&(task.status == true)">
+										In Progress - {{task.nameTask}}
+									</span>
+									<span  class="label label-yellow" ng-if="task.completed">
+										Completed - {{task.nameTask}}
+									</span>
+									<span class="label label-orange" ng-if="(task.completed==false)&&(task[0].status == false)">
+										UnApproved - {{task.nameTask}}
+									</span>
+								</div>
+								<div class="task-body">{{task.describe}}</div>
+								<div class="task-creator">
+									<span style="color:red">From</span> {{task.startTime | date:'yyyy-MM-dd'}} <span style="color:red">to</span> {{task.endTime | date:'yyyy-MM-dd'}}
+								</div>
+							</li>
+
+						</ul>
+					</div>
+				</div><!--Widget Body-->
+			</div>
+
+		</div>
+	</div>
+	<section id="section-1"></section>
+	<div class="row">
+		<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="widget">
+						<div class="widget-header bordered-bottom bordered-themesecondary">
+							<i class="widget-icon fa fa-tags themesecondary"></i>
+							<span class="widget-caption themesecondary">Recent your status</span>
+						</div><!--Widget Header-->
+						<div class="widget-body  no-padding">
+							<div class="tickets-container">
+								<ul class="tickets-list">
+									<li class="ticket-item" ng-repeat="s in status">
+										<div class="row">
+											<div class="ticket-user col-lg-6 col-sm-12">
+												<span class="user-name">{{s.content}}</span>
+											</div>
+											<div class="ticket-time  col-lg-4 col-sm-6 col-xs-12">
+												<div class="divider hidden-md hidden-sm hidden-xs"></div>
+												<i class="fa fa-clock-o"></i>
+												<span class="time">{{s.created | date:'yyyy-MM-dd'}}</span>
+											</div>
+											<div class="ticket-type  col-lg-2 col-sm-6 col-xs-12">
+												<span class="divider hidden-xs"></span>
+												<span class="type">{{s.classify}}</span>
+											</div>
+											<div ng-show="s.classify == 'happy'" class="ticket-state bg-palegreen">
+												<i class="fa fa-check"></i>
+											</div>
+											<div ng-show="s.classify == 'sad'" class="ticket-state bg-darkorange">
+												<i class="fa fa-times"></i>
+											</div>
+											<div ng-show="(s.classify != 'sad')&&(s.classify != 'happy')" class="ticket-state bg-yellow">
+												<i class="fa fa-info"></i>
+											</div>
+										</div>
+									</li>
+	
+								</ul>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+			<div class="orders-container">
+				<div class="orders-header">
+					<h6>Today Events</h6>
+				</div>
+				<ul class="orders-list" ng-repeat="i in todayEvents">
+					<li class="order-item">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 item-left">
+							<div class="item-booker">{{i.title}}</div>
+								<div class="item-time">
+									<i class="fa fa-calendar"></i>
+									<span style="color:red">Today </span> to <span style="color:red">{{i.end | date:'yyyy-MM-dd'}}</span>
+								</div>
+							</div>
+							
+						</div>
+						<a class="item-more" href="">
+							<i></i>
+						</a>
+					</li>
+				</ul>
+				<div class="orders-footer">
+					<a class="show-all" href="app/calendar"><i class="fa fa-angle-down"></i> Show All</a>
+					<div class="help">
+						<a href="app/calendar"><i class="fa fa-question"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>    
+</div>

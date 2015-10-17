@@ -1,0 +1,193 @@
+﻿<div class="navbar-inner">
+    <div class="navbar-container" ng-controller="navbarCtrl">
+        <!-- Navbar Barnd -->
+        <div class="navbar-header pull-left">
+            <a href="app/main" class="navbar-brand">
+                <small>
+                    <img src="assets/img/logo-bksolo.png" alt="" >
+                </small>
+            </a>
+        </div>
+        <!-- /Navbar Barnd -->
+        <!-- Sidebar Collapse -->
+        <div class="sidebar-collapse"></div>
+        <!-- /Sidebar Collapse -->
+        <!-- Account Area and Settings -->
+        <div class="navbar-header pull-right">
+            <div class="navbar-account">
+                <ul class="account-area">
+                    <li>
+                        <a class=" dropdown-toggle" data-toggle="dropdown" title="Help" href="#">
+                            <i class="icon fa fa-calendar"></i>
+                            <span class="badge">{{todayEventsLength}}</span>
+                        </a>
+                        <!--Notification Dropdown-->
+                        <ul class="pull-right dropdown-menu dropdown-arrow dropdown-notifications">
+                            <li ng-repeat="i in todayEvents">
+                                <a href="#">
+                                    <div class="clearfix">
+                                        <div class="notification-icon">
+                                            <i class="fa fa-check bg-themeprimary white"></i>
+                                        </div>
+                                        <div class="notification-body">
+                                            <span class="title">{{i.title}}</span>
+                                            <span class="description"><span style="color:red">Today </span> to <span style="color:red">{{i.end | date:'yyyy-MM-dd'}}</span></span>
+                                        </div>
+                                        <div class="notification-extra">
+                                            <i class="fa fa-clock-o themeprimary"></i>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </li>
+                            <li class="dropdown-footer ">
+                                <span>
+                                    Today, {{nowdate | date:'MMM-dd'}}
+                                </span>
+                                <span class="pull-right">
+                                    20°c
+                                    <i class="wi wi-cloudy"></i>
+                                </span>
+                            </li>
+                        </ul>
+                        <!--/Notification Dropdown-->
+                    </li>
+                </li>
+
+                <li>
+                    <a class="dropdown-toggle" data-toggle="dropdown" title="Tasks" href="#">
+                        <i class="icon fa fa-tasks"></i>
+                        <span class="badge">{{indextask}}</span>
+                    </a>
+                    <!--Tasks Dropdown-->
+                    <ul class="pull-right dropdown-menu dropdown-tasks dropdown-arrow ">
+                        <li class="dropdown-header bordered-darkorange">
+                            <i class="fa fa-tasks"></i>
+                            {{indextask}} Tasks In Progress
+                        </li>
+                        <li ng-repeat="a in todaytasksprogress">
+                            <a href="#">
+                                <div class="clearfix">
+                                    <span class="pull-left">{{a.nameTask}}</span>
+                                    <span class="pull-right">{{a.progress}}%</span>
+                                </div>
+                                <div type="info" class="progress-striped active progress ng-isolate-scope">
+                                    <div ng-style="{width: a.progress + '%'}" class="progress-bar progress-bar-info" ng-class="type &amp;&amp; 'progress-bar-' + type" role="progressbar"  aria-valuemin="0" aria-valuemax="100"  ></div>
+                                </div>
+                            </a>
+                        </li>
+                        
+                        <li class="dropdown-footer">
+                            <a href="app/tasks">
+                                See All Tasks
+                            </a>
+                            <button class="btn btn-xs btn-default shiny darkorange icon-only pull-right"><i class="fa fa-check"></i></button>
+                        </li>
+                    </ul>
+                    <!--/Tasks Dropdown-->
+                </li>
+                <li>
+                    <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                        <div class="avatar" title="View your public profile">
+                            <img src="{{ images }}">
+                        </div>
+                        <section>
+                            <h2><span class="profile"><span>Hi {{ name }}</span></span></h2>
+                        </section>
+                    </a>
+                    <!--Login Area Dropdown-->
+                    <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                        <li class="username"><a>{{ name }}</a></li>
+                        <li class="email"><a>{{email}}</a></li>
+                        <!--Avatar Area-->
+                        <li>
+                            <div class="avatar-area">
+                                <img src="{{images}}" class="avatar">
+                                <span ng-click="openUpdate()" class="caption">Change Photo</span>
+                            </div>
+                        </li>
+                        <!--Avatar Area-->
+                        <li class="edit">
+                            <a href="app/profile" class="pull-left">Profile</a>
+                            <a ng-click="openUpdate()" class="pull-right">Update</a>
+                        </li>
+                        <script type="text/ng-template" id="updateModal" >
+                            <div class="modal-header">
+                                <h3 style="margin-top: 0px;margin-bottom: 0px;">Update Account</h3>
+                                <p style="margin-top:10px" class="bg-danger">{{notify}}</p>
+                            </div>
+                            <form ng-submit="submit()">
+
+                              <div class="form-group">
+                                <label style="margin:10px" for="fulname">Fullname:</label>
+                                <input ng-model="user.name" style="margin:10px;width: 95%;" type="text" class="form-control" id="name" >
+                            </div>
+                            <div class="form-group">
+                                <label style="margin:10px" for="username">Username:</label>
+                                <input ng-model="user.username" style="margin:10px;width: 95%;" type="text" class="form-control" id="username" >
+                            </div>
+                            <div class="form-group">
+                                <label style="margin:10px" for="pwd">New Password:</label>
+                                <input ng-model="user.password" style="margin:10px;width: 95%;" type="password" class="form-control" id="pwd" >
+                            </div>
+                            <div class="form-group">
+                                <label style="margin:10px" for="email">Email:</label>
+                                <input ng-model="user.email" style="margin:10px;width: 95%;" type="email" class="form-control" id="email">
+                            </div>
+                            <div class="form-group" >
+                                <label style="margin:10px" for="images">Choose Images:</label>
+
+                                <select name="singleSelect" ng-model="user.images">
+                                  <option ng-repeat="item in items" value="{{item.value}}">{{item.key}}</option>
+
+                              </select>
+                              <img style="margin-left: 100px;" src="{{user.images}}" alt="">
+
+                          </div>
+                          <div style="margin-top:20px" class="modal-footer">
+                              <button type="submit" class="btn btn-primary">Submit</button>
+                              <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                          </div>
+                      </form>
+                  </script>
+                  <!--Theme Selector Area-->
+                  <li class="theme-area">
+                    <ul class="colorpicker">
+                        <li><a class="colorpick-btn" href="" style="background-color:#5DB2FF;" skin-changer rel="assets/css/skins/blue.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#2dc3e8;" skin-changer rel="assets/css/skins/azure.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#03B3B2;" skin-changer rel="assets/css/skins/teal.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#53a93f;" skin-changer rel="assets/css/skins/green.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#FF8F32;" skin-changer rel="assets/css/skins/orange.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#cc324b;" skin-changer rel="assets/css/skins/pink.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#AC193D;" skin-changer rel="assets/css/skins/darkred.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#8C0095;" skin-changer rel="assets/css/skins/purple.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#0072C6;" skin-changer rel="assets/css/skins/darkblue.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#585858;" skin-changer rel="assets/css/skins/gray.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#474544;" skin-changer rel="assets/css/skins/black.min.css"></a></li>
+                        <li><a class="colorpick-btn" href="" style="background-color:#001940;" skin-changer rel="assets/css/skins/deepblue.min.css"></a></li>
+                    </ul>
+                </li>
+                <!--/Theme Selector Area-->
+                <li class="dropdown-footer">
+                    <a ng-click="doLogout()">
+                        Sign out
+                    </a>
+                </li>
+            </ul>
+            <!--/Login Area Dropdown-->
+        </li>
+        <!-- /Account Area -->
+                    <!--Note: notice that setting div must start right after account area list.
+                    no space must be between these elements-->
+                    <!-- Settings -->
+                </ul>
+                <div class="setting">
+                    <a ng-click="openUpdate()" id="btn-setting" title="Setting">
+                        <i class="icon glyphicon glyphicon-cog"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- /Account Area and Settings -->
+    </div>
+</div>

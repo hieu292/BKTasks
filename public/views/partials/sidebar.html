@@ -1,0 +1,62 @@
+﻿    <!-- Page Sidebar Header-->
+<div class="sidebar-header-wrapper">
+    <input id="googlesearch" type="text" class="searchinput" onkeydown="if (event.keyCode == 13 || event.which == 13) { location='http://www.google.com/search?q=' + encodeURIComponent(document.getElementById('googlesearch').value);}" />
+    <i class="searchicon fa fa-search"></i>
+    <div class="searchhelper">Google Search</div>
+</div>
+<!-- /Page Sidebar Header -->
+<!-- Sidebar Menu -->
+<ul class="nav sidebar-menu" ng-controller="sidebarCtrl">
+    <!--Dashboard-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.main">
+            <i class="menu-icon glyphicon glyphicon-home"></i>
+            <span class="menu-text"> Main </span>
+        </a>
+    </li>
+    <!--Databoxes-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.tasks">
+            <i class="menu-icon glyphicon glyphicon-tasks"></i>
+            <span class="menu-text"> Tasks </span>
+        </a>
+    </li>
+    <!--Widgets-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.performance">
+            <i class="menu-icon fa fa-th"></i>
+            <span class="menu-text"> Performance </span>
+        </a>
+    </li>
+    
+    <!--Calendar-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.calendar">
+            <i class="menu-icon fa fa-calendar"></i>
+            <span class="menu-text">
+                Calendar{{idUser}}
+            </span>
+        </a>
+    </li>
+    <!--Presentation-->
+    <li ui-sref-active="active">
+        <a ui-sref="app.presentation">
+            <i class="menu-icon fa fa-picture-o"></i>
+            <span class="menu-text">Presentation</span>
+        </a>
+    </li>
+    <li ng-if="(idUser == 1)" ui-sref-active="active">
+        <a ui-sref="app.adminUser">
+            <i class="menu-icon fa fa-users"></i>
+            <span class="menu-text">Users Management</span>
+        </a>
+    </li>
+    <li ng-if="(idUser == 1 || idUser == 2)" ui-sref-active="active">
+        <a ui-sref="app.adminML">
+            <i class="menu-icon fa fa-cogs"></i>
+            <span class="menu-text">Machine Learning</span>
+
+        </a>
+    </li>
+</ul>
+<!-- /Sidebar Menu -->
